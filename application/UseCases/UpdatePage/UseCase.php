@@ -1,7 +1,8 @@
 <?php
 
-namespace PageManagementSystem\UseCases;
+namespace PageManagementSystem\UseCases\UpdatePage;
 
+use PageManagementSystem\UseCases\UseCase as UseCaseInterface;
 use PageManagementSystem\Entities\PageRepository;
 use PageManagementSystem\Entities\Page;
 use PageManagementSystem\Entities\Slug;
@@ -11,7 +12,7 @@ use PageManagementSystem\Entities\Exceptions\PageDoesNotExist;
 use PageManagementSystem\UseCases\UpdatePage\RequestModel;
 use PageManagementSystem\UseCases\UpdatePage\ResponseModel;
 
-class UpdatePage implements UseCase
+class UseCase implements UseCaseInterface
 {
     /** @var PageRepository */
     private $repository;

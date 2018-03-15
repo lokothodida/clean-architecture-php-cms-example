@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\PageManagementSystem\UseCases;
+namespace spec\PageManagementSystem\UseCases\CreatePage;
 
 use PageManagementSystem\UseCases\CreatePage;
 use PageManagementSystem\UseCases\CreatePage\RequestModel;
@@ -11,7 +11,7 @@ use PageManagementSystem\Infrastructure\InMemoryPageRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class CreatePageSpec extends ObjectBehavior
+class UseCaseSpec extends ObjectBehavior
 {
     /** @var PageRepository */
     private $repository;

@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\PageManagementSystem\UseCases;
+namespace spec\PageManagementSystem\UseCases\UpdatePage;
 
 use PageManagementSystem\UseCases\UpdatePage;
 use PageManagementSystem\Entities\Exceptions\PageDoesNotExist;
@@ -14,7 +14,7 @@ use PageManagementSystem\UseCases\UpdatePage\ResponseModel;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class UpdatePageSpec extends ObjectBehavior
+class UseCaseSpec extends ObjectBehavior
 {
     /** @var PageRepository */
     private $repository;

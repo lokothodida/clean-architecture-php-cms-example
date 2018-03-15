@@ -1,13 +1,14 @@
 <?php
 
-namespace PageManagementSystem\UseCases;
+namespace PageManagementSystem\UseCases\DeletePage;
 
+use PageManagementSystem\UseCases\UseCase as UseCaseInterface;
 use PageManagementSystem\Entities\PageRepository;
 use PageManagementSystem\Entities\Slug;
 use PageManagementSystem\UseCases\DeletePage\RequestModel;
 use PageManagementSystem\UseCases\DeletePage\ResponseModel;
 
-class DeletePage implements UseCase
+class UseCase implements UseCaseInterface
 {
     /** @var PageRepository */
     private $repository;

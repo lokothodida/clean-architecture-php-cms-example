@@ -1,14 +1,15 @@
 <?php
 
-namespace PageManagementSystem\UseCases;
+namespace PageManagementSystem\UseCases\RenameSlug;
 
+use PageManagementSystem\UseCases\UseCase as UseCaseInterface;
 use PageManagementSystem\Entities\Slug;
 use PageManagementSystem\Entities\PageRepository;
 use PageManagementSystem\UseCases\Exceptions\SlugAlreadyTaken;
 use PageManagementSystem\UseCases\RenameSlug\RequestModel;
 use PageManagementSystem\UseCases\RenameSlug\ResponseModel;
 
-class RenameSlug implements UseCase
+class UseCase implements UseCaseInterface
 {
     /** @var PageRepository */
     private $repository;

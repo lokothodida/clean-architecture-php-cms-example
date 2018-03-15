@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\PageManagementSystem\UseCases;
+namespace spec\PageManagementSystem\UseCases\DeletePage;
 
 use Exception;
 use PageManagementSystem\UseCases\DeletePage;
@@ -10,7 +10,7 @@ use PageManagementSystem\UseCases\DeletePage\ResponseModel;
 use PageManagementSystem\Entities\Page;
 use PhpSpec\ObjectBehavior;
 
-class DeletePageSpec extends ObjectBehavior
+class UseCaseSpec extends ObjectBehavior
 {
     /** @var PageRepository */
     private $repository;

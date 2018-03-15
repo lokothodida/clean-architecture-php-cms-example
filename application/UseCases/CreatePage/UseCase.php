@@ -1,15 +1,15 @@
 <?php
 
-namespace PageManagementSystem\UseCases;
+namespace PageManagementSystem\UseCases\CreatePage;
 
-use PageManagementSystem\UseCases\UseCase;
+use PageManagementSystem\UseCases\UseCase as UseCaseInterface;
 use PageManagementSystem\UseCases\Exceptions\SlugAlreadyTaken;
 use PageManagementSystem\Entities\Page;
 use PageManagementSystem\Entities\PageRepository;
 use PageManagementSystem\UseCases\CreatePage\RequestModel;
 use PageManagementSystem\UseCases\CreatePage\ResponseModel;
 
-class CreatePage implements UseCase
+class UseCase implements UseCaseInterface
 {
     /** @var PageRepository */
     private $repository;

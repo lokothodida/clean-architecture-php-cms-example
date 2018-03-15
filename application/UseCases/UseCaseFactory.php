@@ -3,16 +3,16 @@
 namespace PageManagementSystem\UseCases;
 
 use PageManagementSystem\Entities\PageRepository;
-use PageManagementSystem\UseCases\CreatePage as CreatePageUseCase;
+use PageManagementSystem\UseCases\CreatePage\UseCase as CreatePageUseCase;
 use PageManagementSystem\UseCases\CreatePage\RequestModel as CreatePageRequestModel;
 use PageManagementSystem\UseCases\CreatePage\ResponseModel as CreatePageResponseModel;
-use PageManagementSystem\UseCases\UpdatePage as UpdatePageUseCase;
+use PageManagementSystem\UseCases\UpdatePage\UseCase as UpdatePageUseCase;
 use PageManagementSystem\UseCases\UpdatePage\RequestModel as UpdatePageRequestModel;
 use PageManagementSystem\UseCases\UpdatePage\ResponseModel as UpdatePageResponseModel;
-use PageManagementSystem\UseCases\RenameSlug as RenameSlugUseCase;
+use PageManagementSystem\UseCases\RenameSlug\UseCase as RenameSlugUseCase;
 use PageManagementSystem\UseCases\RenameSlug\RequestModel as RenameSlugRequestModel;
 use PageManagementSystem\UseCases\RenameSlug\ResponseModel as RenameSlugResponseModel;
-use PageManagementSystem\UseCases\DeletePage as DeletePageUseCase;
+use PageManagementSystem\UseCases\DeletePage\UseCase as DeletePageUseCase;
 use PageManagementSystem\UseCases\DeletePage\RequestModel as DeletePageRequestModel;
 use PageManagementSystem\UseCases\DeletePage\ResponseModel as DeletePageResponseModel;
 

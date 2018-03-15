@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\PageManagementSystem\UseCases;
+namespace spec\PageManagementSystem\UseCases\RenameSlug;
 
 use Exception;
 use PageManagementSystem\UseCases\RenameSlug;
@@ -14,7 +14,7 @@ use PageManagementSystem\UseCases\RenameSlug\ResponseModel;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class RenameSlugSpec extends ObjectBehavior
+class UseCaseSpec extends ObjectBehavior
 {
     /** @var PageRepository */
     private $repository;
