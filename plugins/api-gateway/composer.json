@@ -1,0 +1,15 @@
+{
+    "name": "lokothodida/ddd-cms-example-rest-api",
+    "authors": [
+        {
+            "name": "Lawrence Okoth-Odida",
+            "email": "lawrence.okothodida@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PageManagementSystem\\Plugins\\ApiGateway\\": "./"
+        }
+    },
+    "require": {}
+}

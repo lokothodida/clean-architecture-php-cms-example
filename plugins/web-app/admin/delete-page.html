@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Delete a page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+    </head>
+    <body>
+        <div id="app" class="container">
+            Loading...
+        </div>
+
+        <template id="delete-page-template">
+            <h1>Delete a page ({{ title }})</h1>
+            <form method="post">
+                <p>
+                    Are you sure?
+                </p>
+                <button name="action" value="delete-slug">Delete page</button>
+            </form>
+            <a href="{{ homeUrl }}">Back</a>
+        </template>
+
+        <script>
+            requirejs.config({ baseUrl: '../js/' });
+            requirejs(['app'], (app) => {
+                const container = document.querySelector('#app');
+                const api = app.api;
+                const urlBuilder = app.urlBuilder;
+                const slug = app.urlParams.get('slug');
+
+                const render = (page) => {
+                    container.innerHTML = app.template('#delete-page-template').render({
+                        slug: page.slug,
+                        title: page.title,
+                        homeUrl: urlBuilder.viewAllPages()
+                    });
+
+                    const form = document.querySelector('form');
+
+                    form.addEventListener('submit', submitForm);
+                };
+
+                const submitForm = (event) => {
+                    event.preventDefault();
+
+                    api.deletePage(slug)
+                    .then(() => {
+                        alert("Deleted page " + slug);
+                        window.location = urlBuilder.viewAllPages();
+                    }).catch((err) => {
+                        alert("Failed to delete page");
+                    });
+                };
+
+                api.getPage(slug).then(render);
+            });
+        </script>
+    </body>
+</html>

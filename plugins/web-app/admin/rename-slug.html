@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Rename a slug</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+    </head>
+    <body>
+        <div id="app" class="container">
+            Loading...
+        </div>
+
+        <template id="rename-slug-template">
+            <h1>Rename a slug ({{ title }})</h1>
+            <form method="post">
+                <p>
+                    <input required name="slug" placeholder="Slug" value="{{ slug }}" />
+                </p>
+                <button name="action" value="rename-slug">Rename slug</button>
+            </form>
+            <a href="{{ homeUrl }}">Back</a>
+        </template>
+
+        <script>
+            requirejs.config({ baseUrl: '../js/' });
+            requirejs(['app'], (app) => {
+                const container = document.querySelector('#app');
+                const api = app.api;
+                const urlBuilder = app.urlBuilder;
+                const slug = app.urlParams.get('slug');
+
+                const render = (page) => {
+                    container.innerHTML = app.template('#rename-slug-template').render({
+                        slug: page.slug,
+                        title: page.title,
+                        homeUrl: urlBuilder.viewAllPages()
+                    });
+
+                    const form = document.querySelector('form');
+
+                    form.addEventListener('submit', submitForm(page.slug));
+                };
+
+                const submitForm = (oldSlug) => (event) => {
+                    event.preventDefault();
+
+                    const newSlug = document.querySelector('[name=slug]').value;
+
+                    api.renameSlug(oldSlug, newSlug)
+                    .then(() => {
+                        alert("Renamed page slug to " + newSlug);
+                        window.location = urlBuilder.renameSlug(newSlug);
+                    }).catch((err) => {
+                        alert("Failed to rename slug");
+                    });
+                };
+
+                api.getPage(slug).then(render);
+            });
+        </script>
+    </body>
+</html>

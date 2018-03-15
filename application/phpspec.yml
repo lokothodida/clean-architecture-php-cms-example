@@ -1,0 +1,5 @@
+suites:
+    pagemanagementsystem_suite:
+        spec_path: "%paths.config%/Tests"
+        src_path: "%paths.config%/"
+        namespace: PageManagementSystem

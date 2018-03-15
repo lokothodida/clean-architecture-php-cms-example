@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Loading page...</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            Loading...
+        </div>
+
+        <template id="page-template">
+            <h1>{{ title }}</h1>
+            <article>
+                {{ content }}
+            </article>
+        </template>
+
+        <script>
+            requirejs.config({ baseUrl: 'js/' });
+            requirejs(['app'], (app) => {
+                const container = document.querySelector('#app');
+                const api = app.api;
+                const slug = app.urlParams.get('slug');
+
+                const renderPage = (page) => {
+                    container.innerHTML = app.template('#page-template').render({
+                        title: page.title,
+                        content: page.content
+                    });
+
+                    document.querySelector('title').innerHTML = page.title;
+                };
+
+                const renderError = (err) => {
+                    const title = '404 Page Not Found';
+
+                    container.innerHTML = app.template('#page-template').render({
+                        title: title,
+                        content: err
+                    });
+
+                    document.querySelector('title').innerHTML = title;
+                };
+
+                api.getPage(slug).then(renderPage).catch(renderError);
+            });
+        </script>
+    </body>
+</html>

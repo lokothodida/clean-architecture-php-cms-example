@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Update Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+    </head>
+    <body>
+        <div id="app" class="container">
+        </div>
+
+        <template id="edit-page-template">
+            <h1>Edit page "{{ title }}"</h1>
+            <form>
+                <input type="hidden" name="action" />
+                <p>
+                    <input class="form-control" required name="title" placeholder="Title" value="{{ title }}" />
+                </p>
+                <p>
+                    <textarea class="form-control" required name="content" placeholder="Content">{{ content }}</textarea>
+                </p>
+                <button class="btn btn-primary" name="action" value="edit-page">Edit Page</button>
+            </form>
+            <a href="{{ homeUrl }}">Back</a>
+        </template>
+
+        <script>
+            requirejs.config({ baseUrl: '../js/' });
+            requirejs(['app'], (app) => {
+                const container = document.querySelector('#app');
+                const api = app.api;
+                const urlBuilder = app.urlBuilder;
+                const slug = app.urlParams.get('slug');
+
+                const renderUpdatePage = (page) => {
+                    container.innerHTML = app.template('#edit-page-template').render({
+                        title: page.title,
+                        content: page.content,
+                        homeUrl: urlBuilder.viewAllPages()
+                    });
+
+                    document.querySelector('form').addEventListener('submit', submitForm);
+                };
+
+                const submitForm = (event) => {
+                    event.preventDefault();
+
+                    const title = document.querySelector('[name=title]').value;
+                    const content = document.querySelector('[name=content]').value;
+
+                    api.updatePage(slug, title, content)
+                    .then(() => {
+                        alert("Updated page successfully");
+                    }).catch((err) => {
+                        alert("Failed to update page");
+                    });
+                };
+
+                api.getPage(slug).then(renderUpdatePage);
+            });
+        </script>
+    </body>
+</html>

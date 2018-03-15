@@ -1,0 +1,17 @@
+{
+    "name": "ubuntu/database",
+    "authors": [
+        {
+            "name": "Lawrence Okoth-Odida",
+            "email": "lawrence.okothodida@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PageManagementSystem\\Plugins\\Database\\": "./"
+        }
+    },
+    "require": {
+        "zumba/json-serializer": "^2.2"
+    }
+}

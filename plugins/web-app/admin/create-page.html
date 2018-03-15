@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Page Management System</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+    </head>
+    <body>
+        <div id="app" class="container">
+        </div>
+
+        <template id="create-page-template">
+            <h1>Create a page</h1>
+            <form>
+                <input type="hidden" name="action" />
+                <p>
+                    <input class="form-control" required name="title" placeholder="Title" />
+                </p>
+                <p>
+                    <textarea class="form-control" required name="content" placeholder="Content"></textarea>
+                </p>
+                <button class="btn btn-primary" name="action" value="create-page">Create Page</button>
+            </form>
+            <a href="{{ homeUrl }}">Back</a>
+        </template>
+
+        <script>
+            requirejs.config({ baseUrl: '../js/' });
+            requirejs(['app'], (app) => {
+                const container = document.querySelector('#app');
+                const template = app.template('#create-page-template');
+                const api = app.api;
+                const urlBuilder = app.urlBuilder;
+
+                const renderCreatePageForm = () => {
+                    container.innerHTML = template.render({
+                        homeUrl: urlBuilder.viewAllPages()
+                    });
+
+                    document.querySelector('form').addEventListener('submit', submitForm);
+                };
+
+                const submitForm = (event) => {
+                    event.preventDefault();
+
+                    const title   = document.querySelector('[name=title]').value;
+                    const content = document.querySelector('[name=content]').value;
+
+                    createPage(title, content);
+                };
+
+                const createPage = (title, content) => {
+                    api.createPage(title, content)
+                    .then(() => {
+                        alert("Created page successfully!");
+                        window.location = urlBuilder.viewAllPages();
+                    }).catch((err) => {
+                        alert("Failed to create page");
+                    });
+                };
+
+                renderCreatePageForm();
+            });
+        </script>
+    </body>
+</html>

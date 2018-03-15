@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>Page Management System</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+    </head>
+    <body>
+        <div id="app" class="container">
+        </div>
+
+        <template id="page-list-template">
+            <h1>Page Management System</h1>
+            <a href="{{ createPageUrl }}">Create Page</a>
+            <ul id="pages-list">
+                {{ pagesList }}
+            </ul>
+        </template>
+
+        <template id="page-item-template">
+            <li>
+                <a href="{{ updateUrl }}">{{ title }}</a>
+                | <a href="{{ renameUrl }}">rename</a>
+                | <a href="{{ deleteUrl }}">delete</a>
+                | <a href="{{ viewUrl }}" target="_blank">view</a>
+            </li>
+        </template>
+
+        <script>
+            requirejs.config({ baseUrl: '../js/' });
+            requirejs(['app'], (app) => {
+                const container = document.querySelector('#app');
+                const api = app.api;
+                const urlBuilder = app.urlBuilder;
+
+                const render = (pages) => {
+                    container.innerHTML = app.template('#page-list-template').render({
+                        createPageUrl: urlBuilder.createPage(),
+                        pagesList: renderPageList(pages)
+                    });
+                };
+
+                const renderPageList = (pages) => {
+                    let html = '';
+
+                    pages.map(({ title, slug }) => {
+                        html += app.template('#page-item-template').render({
+                            updateUrl: urlBuilder.updatePage(slug),
+                            renameUrl: urlBuilder.renameSlug(slug),
+                            deleteUrl: urlBuilder.deletePage(slug),
+                            viewUrl: urlBuilder.viewPage(slug),
+                            title
+                        });
+                    });
+
+                    if (pages.length === 0) {
+                        html = '<li>No pages.</li>';
+                    }
+
+                    return html;
+                };
+
+                api.getAllPages().then(render);
+            });
+        </script>
+    </body>
+</html>
