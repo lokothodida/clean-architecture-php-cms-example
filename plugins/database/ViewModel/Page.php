@@ -2,7 +2,8 @@
 
 namespace PageManagementSystem\Plugins\Database\ViewModel;
 
-class Page {
+class Page
+{
     /** @var string */
     private $slug;
 
