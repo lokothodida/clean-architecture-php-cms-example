@@ -25,7 +25,7 @@ class LocalFileSystem implements FileSystem
         return is_writable($this->getFilename($filename));
     }
 
-    public function exists($filename): bool
+    public function exists(string $filename): bool
     {
         return file_exists($this->getFilename($filename));
     }

@@ -19,7 +19,7 @@ class InMemoryFileSystem implements FileSystem
         return true;
     }
 
-    public function exists($filename): bool
+    public function exists(string $filename): bool
     {
         return isset($this->files[$filename]);
     }
