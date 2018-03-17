@@ -1,0 +1,92 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Page Management System",
+		"_postman_id": "c3ac91ce-c35e-7124-1a15-de21214a3298",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create a page",
+			"request": {
+				"url": "{{url}}/pages",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Test Page\",\n\t\"content\": \"Test Content\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "View a page",
+			"request": {
+				"url": "{{url}}/pages/test-page",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "View a list of pages",
+			"request": {
+				"url": "{{url}}/pages",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update a page",
+			"request": {
+				"url": "{{url}}/pages/test-page",
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Test Page (edited)\",\n\t\"content\": \"New content\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Rename a slug",
+			"request": {
+				"url": "{{url}}/pages/test-page",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"slug\": \"test-page-2\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a page",
+			"request": {
+				"url": "{{url}}/pages/test-page",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

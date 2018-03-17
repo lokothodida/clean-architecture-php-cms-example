@@ -1,1 +1,1 @@
-# REST API
+# API Gateway (RESTful API)
