@@ -14,5 +14,7 @@ entity).
 # Exercises
 1. Implement another local flat-file repository (e.g. `XmlPageRepository`)
 2. Implement a relational database page repository (e.g.`MySqlPageRepository`)
-3. Implement a non-relational database page repository (e.g. `MongoDbPageRepository`)
-4. Implement a repository which communicates to some external service (e.g. `ContentfulPageRepository`)
+3. Implement a non-relational database page repository
+   (e.g. `MongoDbPageRepository`)
+4. Implement a repository which communicates to some external service
+   (e.g. `ContentfulPageRepository`)
