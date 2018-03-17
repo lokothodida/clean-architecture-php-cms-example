@@ -60,9 +60,3 @@ Uses the "database" to expose "RESTful" endpoints to be used by the front end.
 The web-facing interface. This has the pages of the front-end application: for
 creating, updating, deleting and renaming pages, as well as viewing an
 individual page.
-
-# Exercises
-1. Use an API framework of your choice for the endpoints (e.g. `Laravel`, `Symfony`, `Slim`, etc...)
-2. Use a JS view-model framework of your choice (e.g. `VueJS`, `React`, `Elm`, etc...)
-3. Implement a new repository (e.g. `XmlPageRepository`, `MySqlPageRepository`, `MongoDbPageRepository`, `ContentfulPageRepository`, etc...)
-4. Add user authentication to the application
