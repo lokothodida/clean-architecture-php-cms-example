@@ -1,4 +1,4 @@
-# "Cleanly Architected PHP CMS Example"
+# "Cleanly Architected PHP CMS Example" [![Build Status](https://travis-ci.org/lokothodida/clean-architecture-php-cms-example.svg?branch=master)](https://travis-ci.org/lokothodida/clean-architecture-php-cms-example)
 This project is an attempt at building the core of a Content Management System
 (here realized as just a "Page Management System") obeying the principles of
 Robert C. Martin's [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html).
