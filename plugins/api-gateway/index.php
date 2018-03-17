@@ -21,13 +21,13 @@ $controller = new PageController(
 
 $app = new App((string)@$_GET['action']);
 
-$app->post('pages(/)*',            [$controller, 'createPage']);
-$app->get('pages/([a-z0-9-]+)',    [$controller, 'viewPage']);
-$app->get('pages(/)*',             [$controller, 'viewAllPages']);
-$app->patch('pages/([a-z0-9-]+)',  [$controller, 'updatePage']);
-$app->post('pages/([a-z0-9-]+)',   [$controller, 'renameSlug']);
+$app->post('pages(/)*', [$controller, 'createPage']);
+$app->get('pages/([a-z0-9-]+)', [$controller, 'viewPage']);
+$app->get('pages(/)*', [$controller, 'viewAllPages']);
+$app->patch('pages/([a-z0-9-]+)', [$controller, 'updatePage']);
+$app->post('pages/([a-z0-9-]+)', [$controller, 'renameSlug']);
 $app->delete('pages/([a-z0-9-]+)', [$controller, 'deletePage']);
-$app->get('',                      [$controller, 'viewAllPages']);
+$app->get('', [$controller, 'viewAllPages']);
 
 $response = $app->execute(Request::fromGlobals());
 

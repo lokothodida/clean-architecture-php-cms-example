@@ -11,5 +11,9 @@
             "PageManagementSystem\\Plugins\\ApiGateway\\": "./"
         }
     },
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "squizlabs/PHP_CodeSniffer": "^3.2",
+        "phpspec/phpspec": "^4.3"
+    }
 }
