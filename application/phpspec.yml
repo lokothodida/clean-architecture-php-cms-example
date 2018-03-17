@@ -3,3 +3,4 @@ suites:
         spec_path: "%paths.config%/Tests"
         src_path: "%paths.config%/"
         namespace: PageManagementSystem
+        psr4_prefix: PageManagementSystem
