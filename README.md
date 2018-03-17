@@ -32,16 +32,7 @@ Requires
 # `/application`
 The core of the application. This houses the Entities and Use Cases: it guards
 the central business rules and exposes a small API for communicating to the
-entities. The use cases include:
-
-* Page creation (slug/id, title, content)
-* Updating a page's title and content
-* Renaming a page's slug
-* Deleting a page
-
-An example of one of the business rules is that slugs can only consist of
-alphanumeric characters and hyphens. An example of one of the application rules
-is that a slug cannot be renamed to that of a taken slug.
+entities.
 
 One of the exposed API elements is a `PageRepository` interface, which expects
 the logic of persisting a page when implemented.
