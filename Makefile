@@ -18,7 +18,10 @@ setup-web-app:
 test-application:
 	cd application && make test
 
-test-plugins: test-database
+test-plugins: test-database test-api-gateway
 
 test-database:
 	cd plugins/database && make test
+
+test-api-gateway:
+	cd plugins/api-gateway && make test

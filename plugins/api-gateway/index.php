@@ -1,8 +1,7 @@
 <?php
 
-require __DIR__ . '/../../application/vendor/autoload.php';
-require __DIR__ . '/../database/vendor/autoload.php';
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/bootstrap.php';
 
 use PageManagementSystem\Plugins\Database\Adapters\PageRepository\JsonPageRepository;
 use PageManagementSystem\Plugins\Database\Adapters\PagePresenterRepository\JsonPagePresenterRepository;
@@ -19,17 +18,11 @@ $controller = new PageController(
     new JsonPagePresenterRepository($fileSystem)
 );
 
-$app = new App((string)@$_GET['action']);
+$app = new App();
 
-$app->post('pages(/)*', [$controller, 'createPage']);
-$app->get('pages/([a-z0-9-]+)', [$controller, 'viewPage']);
-$app->get('pages(/)*', [$controller, 'viewAllPages']);
-$app->patch('pages/([a-z0-9-]+)', [$controller, 'updatePage']);
-$app->post('pages/([a-z0-9-]+)', [$controller, 'renameSlug']);
-$app->delete('pages/([a-z0-9-]+)', [$controller, 'deletePage']);
-$app->get('', [$controller, 'viewAllPages']);
+require 'routes.php';
 
-$response = $app->execute(Request::fromGlobals());
+$response = $app->execute((string)@$_GET['action'], Request::fromGlobals());
 
 http_response_code($response->getStatusCode());
 

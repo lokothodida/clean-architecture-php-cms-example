@@ -1,0 +1,7 @@
+suites:
+    pagemanagementsystem_plugins_database_suite:
+        spec_path: "%paths.config%/Tests"
+        src_path: "%paths.config%/"
+        namespace: PageManagementSystem\Plugins\ApiGateway
+        psr4_prefix: PageManagementSystem\Plugins\ApiGateway
+bootstrap: bootstrap.php

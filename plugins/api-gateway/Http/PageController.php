@@ -32,7 +32,12 @@ class PageController
                 'data' => $this->pageToArray($this->repository->get($slug))
             ]);
         } catch (Exception $exception) {
-            return $this->error($exception);
+            return new JsonResponse(404, [
+                'data' => [
+                    'error' => sprintf('Cannot find page "%s".', $slug),
+                ]
+            ]);
+            ;
         }
     }
 

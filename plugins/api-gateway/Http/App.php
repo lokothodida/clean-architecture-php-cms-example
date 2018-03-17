@@ -4,58 +4,52 @@ namespace PageManagementSystem\Plugins\ApiGateway\Http;
 
 class App
 {
-    private $get;
-    private $post;
-    private $put;
-    private $delete;
-
-    public function __construct(string $url)
-    {
-        $this->get    = new Router($url);
-        $this->post   = new Router($url);
-        $this->put    = new Router($url);
-        $this->patch  = new Router($url);
-        $this->delete = new Router($url);
-    }
+    private $routes = [
+        'GET' => [],
+        'POST' => [],
+        'PUT' => [],
+        'PATCH' => [],
+        'DELETE' => []
+    ];
 
     public function get(string $route, callable $callback): void
     {
-        $this->get->add($route, $callback);
+        $this->routes['GET'][$route] = $callback;
     }
 
     public function post(string $route, callable $callback): void
     {
-        $this->post->add($route, $callback);
+        $this->routes['POST'][$route] = $callback;
     }
 
     public function put(string $route, callable $callback): void
     {
-        $this->put->add($route, $callback);
+        $this->routes['PUT'][$route] = $callback;
     }
 
     public function patch(string $route, callable $callback): void
     {
-        $this->patch->add($route, $callback);
+        $this->routes['PATCH'][$route] = $callback;
     }
 
     public function delete(string $route, callable $callback): void
     {
-        $this->delete->add($route, $callback);
+        $this->routes['DELETE'][$route] = $callback;
     }
 
-    public function execute(Request $request): JsonResponse
+    public function execute(string $url, Request $request): JsonResponse
     {
-        switch ($request->getMethod()) {
-            case 'POST':
-                return $this->post->execute($request);
-            case 'PUT':
-                return $this->put->execute($request);
-            case 'PATCH':
-                return $this->patch->execute($request);
-            case 'DELETE':
-                return $this->delete->execute($request);
-            default:
-                return $this->get->execute($request);
+        return $this->setUpRouter($request->getMethod(), $url)->execute($request);
+    }
+
+    private function setUpRouter(string $method, string $url): Router
+    {
+        $router = new Router($url);
+
+        foreach ($this->routes[$method] as $route => $callback) {
+            $router->add($route, $callback);
         }
+
+        return $router;
     }
 }
