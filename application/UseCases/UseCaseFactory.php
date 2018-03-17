@@ -27,7 +27,7 @@ class UseCaseFactory
 
     public function createPage(CreatePageRequestModel $request): CreatePageResponseModel
     {
-        return (new CreatePageUseCase($this->repository))->$useCase->execute($request);
+        return (new CreatePageUseCase($this->repository))->execute($request);
     }
 
     public function updatePage(UpdatePageRequestModel $request): UpdatePageResponseModel

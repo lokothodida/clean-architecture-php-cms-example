@@ -2,6 +2,7 @@
 
 namespace PageManagementSystem\Plugins\ApiGateway\Http;
 
+use Exception;
 use PageManagementSystem\UseCases\UseCaseFactory;
 use PageManagementSystem\UseCases\CreatePage\RequestModel as CreatePageRequestModel;
 use PageManagementSystem\UseCases\UpdatePage\RequestModel as UpdatePageRequestModel;
@@ -24,11 +25,26 @@ class PageController
         $this->repository = $repository;
     }
 
-    public function viewPage(string $slug): JsonResponse
+    public function viewPage(Request $request, string $slug): JsonResponse
     {
-        return new JsonResponse(200, [
-            'data' => $this->pageToArray($this->repository->get($slug))
-        ]);
+        try {
+            return new JsonResponse(200, [
+                'data' => $this->pageToArray($this->repository->get($slug))
+            ]);
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
+    }
+
+    public function viewAllPages(Request $request): JsonResponse
+    {
+        try {
+            return new JsonResponse(200, [
+                'data' => array_map([$this, 'pageToArray'], $this->repository->getAll())
+            ]);
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
     }
 
     private function pageToArray(Page $page): array
@@ -40,55 +56,82 @@ class PageController
         ];
     }
 
-    public function viewAllPages(): JsonResponse
+    public function renameSlug(Request $request, string $oldSlug): JsonResponse
     {
-        return new JsonResponse(200, [
-            'data' => array_map(function(Page $page) {
-                return $this->pageToArray($page);
-            }, $this->repository->getAll())
-        ]);
+        try {
+            $responseModel = $this->useCases->renameSlug(new RenameSlugRequestModel(
+                $oldSlug,
+                $request->input('slug')
+            ));
+
+            return new JsonResponse(200, [
+                'data' => [
+                    'slug' => $responseModel->getSlug(),
+                ]
+            ]);
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
     }
 
-    public function renameSlug(string $oldSlug, string $newSlug): JsonResponse
+    public function createPage(Request $request): JsonResponse
     {
-        $responseModel = $this->useCases->renameSlug(new RenameSlugRequestModel($oldSlug, $newSlug));
+        try {
+            $responseModel = $this->useCases->createPage(new CreatePageRequestModel(
+                $request->input('title'),
+                $request->input('title'),
+                $request->input('content')
+            ));
 
-        return new JsonResponse(200, [
-            'data' => [
-                'slug' => $responseModel->getSlug(),
-            ]
-        ]);
+            return new JsonResponse(201, [
+                'data' => [
+                    'slug' => $responseModel->getSlug(),
+                ]
+            ]);
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
     }
 
-    public function createPage(string $title, string $content): JsonResponse
+    public function updatePage(Request $request, string $slug): JsonResponse
     {
-        $responseModel = $this->useCases->createPage(new CreatePageRequestModel($title, $title, $content));
+        try {
+            $responseModel = $this->useCases->updatePage(new UpdatePageRequestModel(
+                $slug,
+                $request->input('title'),
+                $request->input('content')
+            ));
 
-        return new JsonResponse(201, [
-            'data' => [
-                'slug' => $responseModel->getSlug(),
-            ]
-        ]);
+            return new JsonResponse(200, [
+                'data' => [
+                    'status' => 'Success',
+                ]
+            ]);
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
     }
 
-    public function updatePage(string $slug, string $title, string $content): JsonResponse
+    public function deletePage(Request $request, string $slug): JsonResponse
     {
-        $responseModel = $this->useCases->updatePage(new UpdatePageRequestModel($slug, $title, $content));
+        try {
+            $responseModel = $this->useCases->deletePage(new DeletePageRequestModel($slug));
 
-        return new JsonResponse(200, [
-            'data' => [
-                'status' => 'Success',
-            ]
-        ]);
+            return new JsonResponse(200, [
+                'data' => [
+                    'status' => 'Success',
+                ]
+            ]);
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
     }
 
-    public function deletePage(string $slug): JsonResponse
+    private function error(Exception $exception)
     {
-        $responseModel = $this->useCases->deletePage(new DeletePageRequestModel($slug));
-
-        return new JsonResponse(200, [
-            'data' => [
-                'status' => 'Success',
+        return new JsonResponse(500, [
+            'error' => [
+                'message' => $exception->getMessage(),
             ]
         ]);
     }

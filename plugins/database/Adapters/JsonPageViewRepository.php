@@ -2,6 +2,7 @@
 
 namespace PageManagementSystem\Plugins\Database\Adapters;
 
+use Exception;
 use StdClass;
 use PageManagementSystem\Plugins\Database\ViewModel\PageRepository;
 use PageManagementSystem\Plugins\Database\ViewModel\Page;
@@ -20,6 +21,10 @@ class JsonPageViewRepository implements PageRepository
 
     public function get(string $slug): Page
     {
+        if (!file_exists($this->getFilename($slug))) {
+            throw new Exception(sprintf('Page %s does not exist', $slug));
+        }
+
         return $this->jsonToPage($this->getJson($this->getFilename($slug)));
     }
 

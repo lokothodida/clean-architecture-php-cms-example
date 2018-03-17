@@ -8,6 +8,8 @@ use PageManagementSystem\Plugins\Database\Adapters\JsonPageRepository;
 use PageManagementSystem\Plugins\Database\Adapters\JsonPageViewRepository;
 use PageManagementSystem\Plugins\ApiGateway\Http\PageController;
 use PageManagementSystem\Plugins\ApiGateway\Http\JsonResponse;
+use PageManagementSystem\Plugins\ApiGateway\Http\App;
+use PageManagementSystem\Plugins\ApiGateway\Http\Request;
 use PageManagementSystem\UseCases\UseCaseFactory;
 
 $controller = new PageController(
@@ -15,40 +17,16 @@ $controller = new PageController(
     new JsonPageViewRepository('/var/tmp/')
 );
 
-try {
-    switch ([@$_GET['action'], @$_POST['action']]) {
-        case ['view-page', false]:
-            $response = $controller->viewPage($_GET['slug']);
-            break;
-        case ['create-page', 'create-page']:
-            $response = $controller->createPage($_POST['title'], $_POST['content']);
-            break;
-        case ['update-page', 'update-page']:
-            $response = $controller->updatePage($_GET['slug'], $_POST['title'], $_POST['content']);
-            break;
-        case ['rename-slug', 'rename-slug']:
-            $response = $controller->renameSlug($_GET['slug'], $_POST['slug']);
-            break;
-        case ['delete-page', 'delete-page']:
-            $response = $controller->deletePage($_GET['slug']);
-            break;
-        case [false, false]:
-            $response = $controller->viewAllPages();
-            break;
-        default:
-            $response = new JsonResponse(400, [
-                'error' => [
-                    'message' => 'Endpoint does not exist'
-                ]
-            ]);
-    }
-} catch (Exception $exception) {
-    $response = new JsonResponse(400, [
-        'error' => [
-            'message' => $exception->getMessage()
-        ]
-    ]);
-}
+$app = new App((string)@$_GET['action']);
+
+$app->post('pages(/)*',                [$controller, 'createPage']);
+$app->get('pages/([a-z0-9-]+)',    [$controller, 'viewPage']);
+$app->patch('pages/([a-z0-9-]+)',  [$controller, 'updatePage']);
+$app->post('pages/([a-z0-9-]+)',   [$controller, 'renameSlug']);
+$app->delete('pages/([a-z0-9-]+)', [$controller, 'deletePage']);
+$app->get('',                      [$controller, 'viewAllPages']);
+
+$response = $app->execute(Request::fromGlobals());
 
 http_response_code($response->getStatusCode());
 

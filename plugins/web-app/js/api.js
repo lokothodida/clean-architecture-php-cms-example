@@ -9,23 +9,28 @@ define([], () => {
     function post(url, body) {
         return fetch(url, {
             method: 'POST',
-            body: createFormData(body)
+            body: JSON.stringify(body)
         }).then(handleJsonResponse);
     }
 
-    function createFormData(body = {}) {
-        const formData = new FormData();
+    function patch(url, body) {
+        return fetch(url, {
+            method: 'PATCH',
+            body: JSON.stringify(body)
+        }).then(handleJsonResponse);
+    }
 
-        for (let param in body) {
-            formData.append(param, body[param]);
-        }
-
-        return formData;
+    function del(url, body) {
+        return fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(body)
+        }).then(handleJsonResponse);
     }
 
     function handleJsonResponse(response) {
         return response.json().then((data) => {
            if (response.status >= 400) {
+               console.log(data.error);
                throw new Error(data.error);
            }
 
@@ -40,55 +45,45 @@ define([], () => {
 
         getAllPages() {
             return get(this.baseUrl + '/').catch((err) => {
-                console.log(err);
                 throw new Error('Failed to load pages');
             });
         }
 
         getPage(slug) {
-            return get(this.baseUrl + '/?action=view-page&slug=' + slug).catch((err) => {
-                console.log(err);
+            return get(this.baseUrl + '/pages/' + slug).catch((err) => {
                 throw new Error('Failed to load page ' + slug);
             });
         }
 
         createPage(title, content) {
-            return post(this.baseUrl + '/?action=create-page', {
-                action: 'create-page',
+            return post(this.baseUrl + '/pages/', {
                 title: title,
                 content: content
             }).catch((err) => {
-                console.log(err);
                 throw new Error('Failed to create page');
             });
         }
 
         updatePage(slug, title, content) {
-            return post(this.baseUrl + '/?action=update-page&slug=' + slug, {
-                action: 'update-page',
+            return patch(this.baseUrl + '/pages/' + slug, {
                 title: title,
                 content: content
             }).catch((err) => {
-                console.log(err);
                 throw new Error('Failed to update page ' + slug);
             });
         }
 
         renameSlug(oldSlug, newSlug) {
-            return post(this.baseUrl + '/?action=rename-slug&slug=' + oldSlug, {
-                action: 'rename-slug',
+            return post(this.baseUrl + '/pages/' + oldSlug, {
                 slug: newSlug
             }).catch((err) => {
-                console.log(err);
                 throw new Error('Failed to rename slug of ' + oldSlug);
             });
         }
 
         deletePage(slug) {
-            return post(this.baseUrl + '/?action=delete-page&slug=' + slug, {
-                action: 'delete-page',
+            return del(this.baseUrl + '/pages/' + slug, {
             }).catch((err) => {
-                console.log(err);
                 throw new Error('Failed to delete page ' + slug);
             });
         }

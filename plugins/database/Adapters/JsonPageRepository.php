@@ -5,6 +5,7 @@ namespace PageManagementSystem\Plugins\Database\Adapters;
 use PageManagementSystem\Entities\PageRepository;
 use PageManagementSystem\Entities\Slug;
 use PageManagementSystem\Entities\Page;
+use PageManagementSystem\Entities\Exceptions\PageDoesNotExist;
 use Zumba\JsonSerializer\JsonSerializer;
 
 class JsonPageRepository implements PageRepository
