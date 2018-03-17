@@ -3,6 +3,33 @@ This project is an attempt at building the core of a Content Management System
 (here realized as just a "Page Management System") obeying the principles of
 Robert C. Martin's [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html).
 
+# Installation
+Requires
+
+* PHP 7.1+
+* [Composer](https://getcomposer.org/)
+* [Make](https://en.wikipedia.org/wiki/Make_(software))
+
+1. Run:
+
+    ```
+    make setup
+    ```
+
+2. Start a web server (e.g. at `localhost:8000`):
+
+    ```
+    php -S localhost:8000 -t foo/
+    ```
+
+3. Visit http://localhost:8000/plugins/web-app/ to view the web app.
+4. Run tests:
+```
+make test
+```
+
+# Project Structure
+
 The structure of the project is as follows:
 
 # `/application`
@@ -38,6 +65,7 @@ creating, updating, deleting and renaming pages, as well as viewing an
 individual page.
 
 # Exercises
-1. Use an API framework of your choice for the endpoints
-2. Use a JS view model framework of your choice
-3. Implement a different persistence mechanism (SQL, NoSQL, Contentful)
+1. Use an API framework of your choice for the endpoints (e.g. `Laravel`, `Symfony`, `Slim`, etc...)
+2. Use a JS view-model framework of your choice (e.g. `VueJS`, `React`, `Elm`, etc...)
+3. Implement a new repository (e.g. `XmlPageRepository`, `MySqlPageRepository`, `MongoDbPageRepository`, `ContentfulPageRepository`, etc...)
+4. Add user authentication to the application
