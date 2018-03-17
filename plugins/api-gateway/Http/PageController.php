@@ -8,7 +8,7 @@ use PageManagementSystem\UseCases\CreatePage\RequestModel as CreatePageRequestMo
 use PageManagementSystem\UseCases\UpdatePage\RequestModel as UpdatePageRequestModel;
 use PageManagementSystem\UseCases\RenameSlug\RequestModel as RenameSlugRequestModel;
 use PageManagementSystem\UseCases\DeletePage\RequestModel as DeletePageRequestModel;
-use PageManagementSystem\Plugins\Database\ViewModel\PageRepository;
+use PageManagementSystem\Plugins\Database\Adapters\PagePresenterRepository;
 use PageManagementSystem\Plugins\Database\ViewModel\Page;
 
 class PageController
@@ -16,10 +16,10 @@ class PageController
     /** @var UseCaseFactory */
     private $useCases;
 
-    /** @var PageRepository */
-    private $pageViewRepository;
+    /** @var PagePresenterRepository */
+    private $repository;
 
-    public function __construct(UseCaseFactory $useCases, PageRepository $repository)
+    public function __construct(UseCaseFactory $useCases, PagePresenterRepository $repository)
     {
         $this->useCases = $useCases;
         $this->repository = $repository;

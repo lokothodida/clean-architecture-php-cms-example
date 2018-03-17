@@ -13,5 +13,8 @@
     },
     "require": {
         "zumba/json-serializer": "^2.2"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^4.3"
     }
 }
