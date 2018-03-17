@@ -13,6 +13,7 @@
     ],
     "require": {},
     "require-dev": {
-        "phpspec/phpspec": "^4.3"
+        "phpspec/phpspec": "^4.3",
+        "squizlabs/PHP_CodeSniffer": "^3.2"
     }
 }
