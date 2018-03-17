@@ -24,14 +24,11 @@ Requires
 
 3. Visit http://localhost:8000/plugins/web-app/ to view the web app.
 4. Run tests:
-```
-make test
-```
+    ```
+    make test
+    ```
 
 # Project Structure
-
-The structure of the project is as follows:
-
 # `/application`
 The core of the application. This houses the Entities and Use Cases: it guards
 the central business rules and exposes a small API for communicating to the
