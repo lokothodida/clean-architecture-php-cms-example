@@ -19,46 +19,9 @@ class PageController
     /** @var PagePresenterRepository */
     private $repository;
 
-    public function __construct(UseCaseFactory $useCases, PagePresenterRepository $repository)
+    public function __construct(UseCaseFactory $useCases)
     {
         $this->useCases = $useCases;
-        $this->repository = $repository;
-    }
-
-    public function viewPage(Request $request, string $slug): JsonResponse
-    {
-        try {
-            return new JsonResponse(200, [
-                'data' => $this->pageToArray($this->repository->get($slug))
-            ]);
-        } catch (Exception $exception) {
-            return new JsonResponse(404, [
-                'data' => [
-                    'error' => sprintf('Cannot find page "%s".', $slug),
-                ]
-            ]);
-            ;
-        }
-    }
-
-    public function viewAllPages(Request $request): JsonResponse
-    {
-        try {
-            return new JsonResponse(200, [
-                'data' => array_map([$this, 'pageToArray'], $this->repository->getAll())
-            ]);
-        } catch (Exception $exception) {
-            return $this->error($exception);
-        }
-    }
-
-    private function pageToArray(Page $page): array
-    {
-        return [
-            'slug' => $page->getSlug(),
-            'title' => $page->getTitle(),
-            'content' => $page->getContent()
-        ];
     }
 
     public function renameSlug(Request $request, string $oldSlug): JsonResponse
