@@ -7,16 +7,15 @@ use PageManagementSystem\Plugins\Database\Adapters\PageRepository\JsonPageReposi
 use PageManagementSystem\Plugins\Database\Adapters\PagePresenterRepository\JsonPagePresenterRepository;
 use PageManagementSystem\Plugins\Database\Adapters\FileSystem\LocalFileSystem;
 use PageManagementSystem\Plugins\ApiGateway\Http\PageController;
+use PageManagementSystem\Plugins\ApiGateway\Http\PageViewController;
 use PageManagementSystem\Plugins\ApiGateway\Http\JsonResponse;
 use PageManagementSystem\Plugins\ApiGateway\Http\App;
 use PageManagementSystem\Plugins\ApiGateway\Http\Request;
 use PageManagementSystem\UseCases\UseCaseFactory;
 
 $fileSystem = new LocalFileSystem('/var/tmp/');
-$controller = new PageController(
-    new UseCaseFactory(new JsonPageRepository($fileSystem)),
-    new JsonPagePresenterRepository($fileSystem)
-);
+$pageController = new PageController(new UseCaseFactory(new JsonPageRepository($fileSystem)));
+$pageViewController = new PageViewController(new JsonPagePresenterRepository($fileSystem));
 
 $app = new App();
 

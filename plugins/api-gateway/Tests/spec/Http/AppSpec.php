@@ -6,6 +6,7 @@ use PageManagementSystem\Plugins\ApiGateway\Http\App;
 use PageManagementSystem\Plugins\ApiGateway\Http\Request;
 use PageManagementSystem\Plugins\ApiGateway\Http\JsonResponse;
 use PageManagementSystem\Plugins\ApiGateway\Http\PageController;
+use PageManagementSystem\Plugins\ApiGateway\Http\PageViewController;
 use PageManagementSystem\Plugins\Database\Adapters\PageRepository\JsonPageRepository;
 use PageManagementSystem\Plugins\Database\Adapters\PagePresenterRepository\JsonPagePresenterRepository;
 use PageManagementSystem\Plugins\Database\Adapters\FileSystem\InMemoryFileSystem;
@@ -19,13 +20,19 @@ class AppSpec extends ObjectBehavior
     private $fileSystem;
 
     /** @var PageController */
-    private $controller;
+    private $pageController;
+
+    /** @var PageViewController */
+    private $pageViewController;
 
     public function let()
     {
         $this->fileSystem = new InMemoryFileSystem();
-        $this->controller = new PageController(
-            new UseCaseFactory(new JsonPageRepository($this->fileSystem)),
+        $this->pageController = new PageController(
+            new UseCaseFactory(new JsonPageRepository($this->fileSystem))
+        );
+
+        $this->pageViewController = new PageViewController(
             new JsonPagePresenterRepository($this->fileSystem)
         );
     }
@@ -39,7 +46,8 @@ class AppSpec extends ObjectBehavior
         ]));
 
         $app = $this;
-        $controller = $this->controller;
+        $pageController = $this->pageController;
+        $pageViewController = $this->pageViewController;
         require __DIR__ . '/../../../routes.php';
     }
 
@@ -51,7 +59,6 @@ class AppSpec extends ObjectBehavior
                 [
                     'slug' => 'test-page',
                     'title' => 'Test Page',
-                    'content' => 'Test Content'
                 ]
             ]
         ]));

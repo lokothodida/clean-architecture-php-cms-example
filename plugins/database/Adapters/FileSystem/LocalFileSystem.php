@@ -48,6 +48,10 @@ class LocalFileSystem implements FileSystem
 
     public function delete(string $filename): void
     {
+        if (!$this->exists($filename)) {
+            throw new Exception(sprintf('File "%s" does not exist', $filename));
+        }
+
         unlink($this->baseDirectory . $filename);
     }
 
