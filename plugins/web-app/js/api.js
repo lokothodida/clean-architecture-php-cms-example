@@ -3,27 +3,31 @@ define([], () => {
     function get(url, body) {
         return fetch(url, {
             method: 'GET',
+            credentials: 'include'
         }).then(handleJsonResponse);
     }
 
     function post(url, body) {
         return fetch(url, {
             method: 'POST',
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            credentials: 'include'
         }).then(handleJsonResponse);
     }
 
     function patch(url, body) {
         return fetch(url, {
             method: 'PATCH',
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            credentials: 'include'
         }).then(handleJsonResponse);
     }
 
     function del(url, body) {
         return fetch(url, {
             method: 'PUT',
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            credentials: 'include'
         }).then(handleJsonResponse);
     }
 
