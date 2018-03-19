@@ -64,10 +64,10 @@ class PageController
     public function renameSlug(Request $request, string $oldSlug): JsonResponse
     {
         try {
-            $responseModel = $this->useCases->renameSlug(new RenameSlugRequestModel(
+            $responseModel = $this->useCases->renameSlug(
                 $oldSlug,
                 $request->input('slug')
-            ));
+            );
 
             return new JsonResponse(200, [
                 'data' => [
@@ -82,11 +82,11 @@ class PageController
     public function createPage(Request $request): JsonResponse
     {
         try {
-            $responseModel = $this->useCases->createPage(new CreatePageRequestModel(
+            $responseModel = $this->useCases->createPage(
                 $request->input('title'),
                 $request->input('title'),
                 $request->input('content')
-            ));
+            );
 
             return new JsonResponse(201, [
                 'data' => [
@@ -101,11 +101,11 @@ class PageController
     public function updatePage(Request $request, string $slug): JsonResponse
     {
         try {
-            $responseModel = $this->useCases->updatePage(new UpdatePageRequestModel(
+            $responseModel = $this->useCases->updatePage(
                 $slug,
                 $request->input('title'),
                 $request->input('content')
-            ));
+            );
 
             return new JsonResponse(200, [
                 'data' => [
@@ -120,7 +120,7 @@ class PageController
     public function deletePage(Request $request, string $slug): JsonResponse
     {
         try {
-            $responseModel = $this->useCases->deletePage(new DeletePageRequestModel($slug));
+            $responseModel = $this->useCases->deletePage($slug);
 
             return new JsonResponse(200, [
                 'data' => [

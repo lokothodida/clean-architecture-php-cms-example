@@ -19,7 +19,7 @@ Requires:
 2. Start a web server (e.g. at `localhost:8000`):
 
     ```
-    php -S localhost:8000 -t foo/
+    php -S localhost:8000 -t ./
     ```
 
 3. Visit http://localhost:8000/plugins/web-app/ to view the web app.

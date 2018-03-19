@@ -25,23 +25,23 @@ class UseCaseFactory
         $this->repository = $repository;
     }
 
-    public function createPage(CreatePageRequestModel $request): CreatePageResponseModel
+    public function createPage(string $title, string $slug, string $content): CreatePageResponseModel
     {
-        return (new CreatePageUseCase($this->repository))->execute($request);
+        return (new CreatePageUseCase($this->repository))->execute(new CreatePageRequestModel($title, $slug, $content));
     }
 
-    public function updatePage(UpdatePageRequestModel $request): UpdatePageResponseModel
+    public function updatePage(string $title, string $slug, string $content): UpdatePageResponseModel
     {
-        return (new UpdatePageUseCase($this->repository))->execute($request);
+        return (new UpdatePageUseCase($this->repository))->execute(new UpdatePageRequestModel($title, $slug, $content));
     }
 
-    public function renameSlug(RenameSlugRequestModel $request): RenameSlugResponseModel
+    public function renameSlug(string $oldSlug, string $newSlug): RenameSlugResponseModel
     {
-        return (new RenameSlugUseCase($this->repository))->execute($request);
+        return (new RenameSlugUseCase($this->repository))->execute(new RenameSlugRequestModel($oldSlug, $newSlug));
     }
 
-    public function deletePage(DeletePageRequestModel $request): DeletePageResponseModel
+    public function deletePage(string $slug): DeletePageResponseModel
     {
-        return (new DeletePageUseCase($this->repository))->execute($request);
+        return (new DeletePageUseCase($this->repository))->execute(new DeletePageRequestModel($slug));
     }
 }
