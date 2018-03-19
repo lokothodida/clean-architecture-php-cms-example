@@ -44,7 +44,7 @@ define([], () => {
         }
 
         getAllPages() {
-            return get(this.baseUrl + '/').catch((err) => {
+            return get(this.baseUrl + '/pages/').catch((err) => {
                 throw new Error('Failed to load pages');
             });
         }

@@ -6,10 +6,13 @@ use PageManagementSystem\Plugins\UserAuthorization\Entities\UserAccountRepositor
 use PageManagementSystem\Plugins\UserAuthorization\Entities\SessionRepository;
 use PageManagementSystem\Plugins\UserAuthorization\UseCases\RegisterAccount\UseCase as RegisterAccountUseCase;
 use PageManagementSystem\Plugins\UserAuthorization\UseCases\RegisterAccount\RequestModel as RegisterAccountRequestModel;
-use PageManagementSystem\Plugins\UserAuthorization\UseCases\RegisterAccount\ResponseModel as RegisterAccountResponseModel;
+use PageManagementSystem\Plugins\UserAuthorization\UseCases\RegisterAccount\ResponseModel
+    as RegisterAccountResponseModel;
 use PageManagementSystem\Plugins\UserAuthorization\UseCases\AuthenticateUser\UseCase as AuthenticateUserUseCase;
-use PageManagementSystem\Plugins\UserAuthorization\UseCases\AuthenticateUser\RequestModel as AuthenticateUserRequestModel;
-use PageManagementSystem\Plugins\UserAuthorization\UseCases\AuthenticateUser\ResponseModel as AuthenticateUserResponseModel;
+use PageManagementSystem\Plugins\UserAuthorization\UseCases\AuthenticateUser\RequestModel
+    as AuthenticateUserRequestModel;
+use PageManagementSystem\Plugins\UserAuthorization\UseCases\AuthenticateUser\ResponseModel
+    as AuthenticateUserResponseModel;
 use PageManagementSystem\Plugins\UserAuthorization\UseCases\BeginSession\UseCase as BeginSessionUseCase;
 use PageManagementSystem\Plugins\UserAuthorization\UseCases\BeginSession\RequestModel as BeginSessionRequestModel;
 use PageManagementSystem\Plugins\UserAuthorization\UseCases\BeginSession\ResponseModel as BeginSessionResponseModel;
