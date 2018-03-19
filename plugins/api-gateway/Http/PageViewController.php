@@ -49,7 +49,6 @@ class PageViewController
                 }, $this->repository->getAll())
             ]);
         } catch (Exception $exception) {
-            var_dump($exception);
             return $this->error($exception);
         }
     }

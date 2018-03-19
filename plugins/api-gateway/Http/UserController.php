@@ -3,12 +3,17 @@
 namespace PageManagementSystem\Plugins\ApiGateway\Http;
 
 use PageManagementSystem\Plugins\UserAuthorization\UseCases\UseCaseFactory as UserAuthorizationUseCaseFactory;
+use PageManagementSystem\Plugins\UserAuthorization\Entities\SessionRepository;
 
 class UserController
 {
-    public function __construct(UserAuthorizationUseCaseFactory $useCases)
+    private $useCases;
+    private $sessionRepository;
+
+    public function __construct(UserAuthorizationUseCaseFactory $useCases, SessionRepository $sessionRepository)
     {
         $this->useCases = $useCases;
+        $this->sessionRepository = $sessionRepository;
     }
 
     public function register(Request $request)
@@ -49,6 +54,23 @@ class UserController
             return new JsonResponse(500, [
                 'error' => [
                     'message' => $exception->getMessage()
+                ]
+            ]);
+        }
+    }
+
+    public function checkUserIsLoggedIn($request)
+    {
+        if (!$this->sessionRepository->exists()) {
+            return new JsonResponse(401, [
+                'error' => [
+                    'message' => 'Must be logged in'
+                ]
+            ]);
+        } else {
+            return new JsonResponse(200, [
+                'data' => [
+                    'message' => 'Success'
                 ]
             ]);
         }

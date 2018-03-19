@@ -11,8 +11,6 @@ use PageManagementSystem\UseCases\DeletePage\RequestModel as DeletePageRequestMo
 use PageManagementSystem\Plugins\Database\Adapters\PagePresenterRepository;
 use PageManagementSystem\Plugins\Database\ViewModel\Page;
 
-use PageManagementSystem\Plugins\UserAuthorization\Entities\SessionRepository;
-
 class PageController
 {
     /** @var UseCaseFactory */
@@ -28,14 +26,6 @@ class PageController
 
     public function renameSlug(Request $request, string $oldSlug): JsonResponse
     {
-        if (!$this->sessionRepository->exists()) {
-            return new JsonResponse(401, [
-                'error' => [
-                    'message' => 'Must be logged in'
-                ]
-            ]);
-        }
-
         try {
             $responseModel = $this->useCases->renameSlug(
                 $oldSlug,
@@ -54,14 +44,6 @@ class PageController
 
     public function createPage(Request $request): JsonResponse
     {
-        if (!$this->sessionRepository->exists()) {
-            return new JsonResponse(401, [
-                'error' => [
-                    'message' => 'Must be logged in'
-                ]
-            ]);
-        }
-
         try {
             $responseModel = $this->useCases->createPage(
                 $request->input('title'),
@@ -81,14 +63,6 @@ class PageController
 
     public function updatePage(Request $request, string $slug): JsonResponse
     {
-        if (!$this->sessionRepository->exists()) {
-            return new JsonResponse(401, [
-                'error' => [
-                    'message' => 'Must be logged in'
-                ]
-            ]);
-        }
-
         try {
             $responseModel = $this->useCases->updatePage(
                 $slug,
@@ -108,14 +82,6 @@ class PageController
 
     public function deletePage(Request $request, string $slug): JsonResponse
     {
-        if (!$this->sessionRepository->exists()) {
-            return new JsonResponse(401, [
-                'error' => [
-                    'message' => 'Must be logged in'
-                ]
-            ]);
-        }
-
         try {
             $responseModel = $this->useCases->deletePage($slug);
 

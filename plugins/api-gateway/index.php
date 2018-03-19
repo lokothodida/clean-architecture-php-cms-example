@@ -28,7 +28,8 @@ $userController = new UserController(
     new UserAuthorizationUseCaseFactory(
         new FlatFileUserAccountRepository($fileSystem),
         $sessionRepository
-    )
+    ),
+    $sessionRepository
 );
 $pageController = new PageController(new UseCaseFactory(new JsonPageRepository($fileSystem)));
 $pageViewController = new PageViewController(new JsonPagePresenterRepository($fileSystem));

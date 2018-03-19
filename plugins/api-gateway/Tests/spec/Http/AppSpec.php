@@ -60,7 +60,8 @@ class AppSpec extends ObjectBehavior
         );
 
         $this->userController = new UserController(
-            $this->userAuthorizationUseCaseFactory
+            $this->userAuthorizationUseCaseFactory,
+            $this->sessionRepository
         );
     }
 
@@ -84,7 +85,7 @@ class AppSpec extends ObjectBehavior
         $this->loadApp();
         $this->register('testuser', 'password');
         $this->login('testuser', 'password');
-        $this->execute('', new Request('GET', []))->shouldBeLike(new JsonResponse(200, [
+        $this->execute('pages', new Request('GET', []))->shouldBeLike(new JsonResponse(200, [
             'data' => [
                 [
                     'slug' => 'test-page',
