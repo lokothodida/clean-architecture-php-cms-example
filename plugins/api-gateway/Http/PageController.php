@@ -21,61 +21,9 @@ class PageController
     /** @var PagePresenterRepository */
     private $repository;
 
-<<<<<<< HEAD
     public function __construct(UseCaseFactory $useCases)
     {
         $this->useCases = $useCases;
-=======
-    public function __construct(UseCaseFactory $useCases, PagePresenterRepository $repository, SessionRepository $sessionRepository)
-    {
-        $this->useCases = $useCases;
-        $this->repository = $repository;
-        $this->sessionRepository = $sessionRepository;
-    }
-
-    public function viewPage(Request $request, string $slug): JsonResponse
-    {
-        try {
-            return new JsonResponse(200, [
-                'data' => $this->pageToArray($this->repository->get($slug))
-            ]);
-        } catch (Exception $exception) {
-            return new JsonResponse(404, [
-                'data' => [
-                    'error' => sprintf('Cannot find page "%s".', $slug),
-                ]
-            ]);
-            ;
-        }
-    }
-
-    public function viewAllPages(Request $request): JsonResponse
-    {
-        if (!$this->sessionRepository->exists()) {
-            return new JsonResponse(401, [
-                'error' => [
-                    'message' => 'Must be logged in'
-                ]
-            ]);
-        }
-
-        try {
-            return new JsonResponse(200, [
-                'data' => array_map([$this, 'pageToArray'], $this->repository->getAll())
-            ]);
-        } catch (Exception $exception) {
-            return $this->error($exception);
-        }
-    }
-
-    private function pageToArray(Page $page): array
-    {
-        return [
-            'slug' => $page->getSlug(),
-            'title' => $page->getTitle(),
-            'content' => $page->getContent()
-        ];
->>>>>>> ed86893... Initial stab at user authorization
     }
 
     public function renameSlug(Request $request, string $oldSlug): JsonResponse
