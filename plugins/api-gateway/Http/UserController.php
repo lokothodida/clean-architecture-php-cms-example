@@ -16,7 +16,7 @@ class UserController
         $this->sessionRepository = $sessionRepository;
     }
 
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         try {
             $username = $request->input('username');
@@ -59,7 +59,7 @@ class UserController
         }
     }
 
-    public function checkUserIsLoggedIn($request)
+    public function checkUserIsLoggedIn($request): JsonResponse
     {
         if (!$this->sessionRepository->exists()) {
             return new JsonResponse(401, [
@@ -76,7 +76,7 @@ class UserController
         }
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         try {
             $username = $request->input('username');
