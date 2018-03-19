@@ -1,17 +1,18 @@
 {
-    "name": "lokothodida/clean-architecture-php-cms-example",
-    "autoload": {
-        "psr-4": {
-            "PageManagementSystem\\": "./"
-        }
-    },
+    "name": "lokothodida/clean-architecture-php-cms-example-user-authorization",
     "authors": [
         {
             "name": "Lawrence Okoth-Odida",
             "email": "lawrence.okothodida@gmail.com"
         }
     ],
-    "require": {},
+    "autoload": {
+        "psr-4": {
+            "PageManagementSystem\\Plugins\\UserAuthorization\\": "./"
+        }
+    },
+    "require": {
+    },
     "require-dev": {
         "phpspec/phpspec": "^4.3",
         "squizlabs/PHP_CodeSniffer": "^3.2"

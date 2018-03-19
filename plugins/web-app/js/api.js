@@ -87,6 +87,15 @@ define([], () => {
                 throw new Error('Failed to delete page ' + slug);
             });
         }
+
+        login(username, password) {
+            return post(this.baseUrl + '/login/', {
+                username,
+                password
+            }).catch((err) => {
+                throw new Error('Failed to login');
+            });
+        }
     }
 
     return Api;

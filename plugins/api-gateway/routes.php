@@ -15,3 +15,7 @@ $app->post('pages(/)*', [$pageController, 'createPage']);
 $app->patch('pages/([a-z0-9-]+)', [$pageController, 'updatePage']);
 $app->post('pages/([a-z0-9-]+)', [$pageController, 'renameSlug']);
 $app->delete('pages/([a-z0-9-]+)', [$pageController, 'deletePage']);
+
+$app->post('register(/)*', [$userController, 'register']);
+$app->post('login(/)*', [$userController, 'login']);
+$app->post('logout(/)*', [$userController, 'logout']);
