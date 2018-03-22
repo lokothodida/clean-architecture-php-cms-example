@@ -95,7 +95,7 @@ class PageController
         }
     }
 
-    private function error(Exception $exception)
+    private function error(Exception $exception): JsonResponse
     {
         return new JsonResponse(500, [
             'error' => [

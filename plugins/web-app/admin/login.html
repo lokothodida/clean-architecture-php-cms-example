@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Page Management System</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+    </head>
+    <body>
+        <div id="app" class="container">
+        </div>
+
+        <template id="login-template">
+            <h1>Login</h1>
+            <form>
+                <input type="hidden" name="action" />
+                <p>
+                    <input class="form-control" name="username" />
+                </p>
+                <p>
+                    <input type="password" class="form-control" name="password" />
+                </p>
+                <button class="btn btn-primary" name="action" value="create-page">Login</button>
+            </form>
+        </template>
+
+        <script>
+            requirejs.config({ baseUrl: '../js/' });
+            requirejs(['app'], (app) => {
+                const container = document.querySelector('#app');
+                const template = app.template('#login-template');
+                const api = app.api;
+                const urlBuilder = app.urlBuilder;
+
+                const renderCreatePageForm = () => {
+                    container.innerHTML = template.render({
+                        homeUrl: urlBuilder.viewAllPages()
+                    });
+
+                    document.querySelector('form').addEventListener('submit', submitForm);
+                };
+
+                const submitForm = (event) => {
+                    event.preventDefault();
+
+                    const username = document.querySelector('[name=username]').value;
+                    const password = document.querySelector('[name=password]').value;
+
+                    login(username, password);
+                };
+
+                const login = (username, password) => {
+                    api.login(username, password)
+                    .then(() => {
+                        alert("Welcome back, " + username);
+                        window.location = urlBuilder.viewAllPages();
+                    }).catch((err) => {
+                        alert("Failed to log in");
+                    });
+                };
+
+                renderCreatePageForm();
+            });
+        </script>
+    </body>
+</html>

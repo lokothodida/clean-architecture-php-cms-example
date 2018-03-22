@@ -3,27 +3,31 @@ define([], () => {
     function get(url, body) {
         return fetch(url, {
             method: 'GET',
+            credentials: 'include'
         }).then(handleJsonResponse);
     }
 
     function post(url, body) {
         return fetch(url, {
             method: 'POST',
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            credentials: 'include'
         }).then(handleJsonResponse);
     }
 
     function patch(url, body) {
         return fetch(url, {
             method: 'PATCH',
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            credentials: 'include'
         }).then(handleJsonResponse);
     }
 
     function del(url, body) {
         return fetch(url, {
             method: 'PUT',
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            credentials: 'include'
         }).then(handleJsonResponse);
     }
 
@@ -44,7 +48,7 @@ define([], () => {
         }
 
         getAllPages() {
-            return get(this.baseUrl + '/').catch((err) => {
+            return get(this.baseUrl + '/pages/').catch((err) => {
                 throw new Error('Failed to load pages');
             });
         }
@@ -85,6 +89,15 @@ define([], () => {
             return del(this.baseUrl + '/pages/' + slug, {
             }).catch((err) => {
                 throw new Error('Failed to delete page ' + slug);
+            });
+        }
+
+        login(username, password) {
+            return post(this.baseUrl + '/login/', {
+                username,
+                password
+            }).catch((err) => {
+                throw new Error('Failed to login');
             });
         }
     }
